@@ -155,8 +155,12 @@ class PerformanceRegressionTests(unittest.TestCase):
         for i in range(1, 5):
             self.add_member(i)
         self.assertEqual(len(self.members.list(limit=2, offset=1)), 2)
+
+    def test_missing_member_lookup_returns_none(self):
+        self.assertIsNone(self.members.get(999))
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
