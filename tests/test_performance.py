@@ -114,8 +114,13 @@ class PerformanceRegressionTests(unittest.TestCase):
         self.add_book(1, "ISBN-1", 1)
         self.add_book(2, "ISBN-2", 1)
         self.assertEqual(self.books.count(""), 2)
+
+    def test_book_search_is_case_insensitive(self):
+        self.add_book()
+        self.assertEqual(self.books.count("python book"), 1)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
