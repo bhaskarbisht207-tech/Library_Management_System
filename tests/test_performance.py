@@ -135,8 +135,15 @@ class PerformanceRegressionTests(unittest.TestCase):
         self.add_book()
         self.books.delete(1)
         self.assertIsNone(self.books.get(1))
+
+    def test_member_add_and_get_round_trip(self):
+        self.add_member(7)
+        row = self.members.get(7)
+        self.assertEqual(row["name"], "Test Member")
+        self.assertEqual(row["member_id"], 7)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
