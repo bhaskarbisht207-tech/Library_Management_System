@@ -122,8 +122,14 @@ class PerformanceRegressionTests(unittest.TestCase):
     def test_book_category_filter_is_case_insensitive(self):
         self.add_book()
         self.assertEqual(self.books.count("", category="programming"), 1)
+
+    def test_book_categories_are_sorted(self):
+        self.books.add([1, "ISBN-1", "Z Book", "Author", "Zoology", "Press", 2024, 1, 1])
+        self.books.add([2, "ISBN-2", "A Book", "Author", "Biology", "Press", 2024, 1, 1])
+        self.assertEqual(self.books.categories(), ["Biology", "Zoology"])
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
