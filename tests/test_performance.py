@@ -1,4 +1,4 @@
-"""Lightweight regression tests for Q02 performance and data integrity."""
+﻿"""Lightweight regression tests for Q02 performance and data integrity."""
 import os
 import sqlite3
 import tempfile
@@ -103,7 +103,11 @@ class PerformanceRegressionTests(unittest.TestCase):
         result = self.db.fetchone("PRAGMA foreign_keys")
         self.assertEqual(result[0], 1)
 
+
+    def test_login_rejects_unknown_username(self):
+        self.assertIsNone(self.db.verify_user("not-a-user", "admin123"))
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
