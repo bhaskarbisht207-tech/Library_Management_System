@@ -1,0 +1,6 @@
+book_id,isbn,title,author,category,publisher,year,quantity
+2001,9780132350884,Clean Code,Robert C. Martin,Programming,Prentice Hall,2008,3
+2002,9780131103627,The C Programming Language,Brian Kernighan,Programming,Pearson,1988,4
+2003,9780262033848,Introduction to Algorithms,Thomas H. Cormen,Algorithms,MIT Press,2009,2
+2004,9781492056355,Fluent Python,Luciano Ramalho,Programming,O'Reilly,2022,3
+2005,9780134685991,Effective Java,Joshua Bloch,Java,Pearson,2018,2
