@@ -106,8 +106,12 @@ class PerformanceRegressionTests(unittest.TestCase):
 
     def test_login_rejects_unknown_username(self):
         self.assertIsNone(self.db.verify_user("not-a-user", "admin123"))
+
+    def test_login_trims_username_whitespace(self):
+        self.assertIsNotNone(self.db.verify_user(" admin ", "admin123"))
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
