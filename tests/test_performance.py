@@ -82,6 +82,13 @@ class PerformanceRegressionTests(unittest.TestCase):
             "idx_members_phone",
         }.issubset(names))
 
+    def test_admin_login_password_verification(self):
+        self.assertIsNotNone(self.db.verify_user("admin", "admin123"))
+        self.assertIsNone(self.db.verify_user("admin", "wrong-password"))
+
+    def test_database_uses_foreign_key_constraints(self):
+        result = self.db.fetchone("PRAGMA foreign_keys")
+        self.assertEqual(result[0], 1)
 
 
     def test_foreign_keys_are_enabled(self):
@@ -98,4 +105,5 @@ class PerformanceRegressionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
