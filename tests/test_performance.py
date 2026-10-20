@@ -127,8 +127,12 @@ class PerformanceRegressionTests(unittest.TestCase):
         self.books.add([1, "ISBN-1", "Z Book", "Author", "Zoology", "Press", 2024, 1, 1])
         self.books.add([2, "ISBN-2", "A Book", "Author", "Biology", "Press", 2024, 1, 1])
         self.assertEqual(self.books.categories(), ["Biology", "Zoology"])
+
+    def test_missing_book_lookup_returns_none(self):
+        self.assertIsNone(self.books.get(999))
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
