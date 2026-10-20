@@ -109,8 +109,14 @@ class PerformanceRegressionTests(unittest.TestCase):
 
     def test_login_trims_username_whitespace(self):
         self.assertIsNotNone(self.db.verify_user(" admin ", "admin123"))
+
+    def test_empty_book_search_count(self):
+        self.add_book(1, "ISBN-1", 1)
+        self.add_book(2, "ISBN-2", 1)
+        self.assertEqual(self.books.count(""), 2)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
