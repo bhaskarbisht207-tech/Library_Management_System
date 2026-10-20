@@ -150,8 +150,14 @@ class PerformanceRegressionTests(unittest.TestCase):
         self.add_member(1)
         self.members.add([2, "Different Person", "9999999999", "other@example.com", "BTech", date.today().isoformat()])
         self.assertEqual(self.members.count("Test Member"), 1)
+
+    def test_member_pagination_respects_limit(self):
+        for i in range(1, 5):
+            self.add_member(i)
+        self.assertEqual(len(self.members.list(limit=2, offset=1)), 2)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
