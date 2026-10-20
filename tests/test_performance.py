@@ -141,8 +141,13 @@ class PerformanceRegressionTests(unittest.TestCase):
         row = self.members.get(7)
         self.assertEqual(row["name"], "Test Member")
         self.assertEqual(row["member_id"], 7)
+
+    def test_member_search_is_case_insensitive(self):
+        self.add_member()
+        self.assertEqual(len(self.members.list("test member")), 1)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
