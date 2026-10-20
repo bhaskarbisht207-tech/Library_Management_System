@@ -85,3 +85,7 @@ class PerformanceRegressionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+    def test_foreign_keys_are_enabled(self):
+        result = self.db.fetchone("PRAGMA foreign_keys")
+        self.assertEqual(result[0], 1)
