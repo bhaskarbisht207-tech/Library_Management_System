@@ -214,8 +214,12 @@ class PerformanceRegressionTests(unittest.TestCase):
         for _ in range(3):
             self.transactions.issue(1, 1, due)
         self.assertEqual(len(self.transactions.recent(limit=2)), 2)
+
+    def test_database_journal_mode_is_wal(self):
+        self.assertEqual(str(self.db.fetchone("PRAGMA journal_mode")[0]).lower(), "wal")
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
