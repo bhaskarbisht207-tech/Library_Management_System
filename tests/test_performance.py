@@ -217,8 +217,12 @@ class PerformanceRegressionTests(unittest.TestCase):
 
     def test_database_journal_mode_is_wal(self):
         self.assertEqual(str(self.db.fetchone("PRAGMA journal_mode")[0]).lower(), "wal")
+
+    def test_database_busy_timeout_is_configured(self):
+        self.assertGreaterEqual(self.db.fetchone("PRAGMA busy_timeout")[0], 1000)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
