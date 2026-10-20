@@ -170,8 +170,17 @@ class PerformanceRegressionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.transactions.issue(1, 999, (date.today() + timedelta(days=7)).isoformat())
         self.assertEqual(self.books.get(1)["available_quantity"], 3)
+
+    def test_issue_rejects_past_due_date(self):
+        self.add_book()
+        self.add_member()
+        yesterday = (date.today() - timedelta(days=1)).isoformat()
+        with self.assertRaises(ValueError):
+            self.transactions.issue(1, 1, yesterday)
+        self.assertEqual(self.books.get(1)["available_quantity"], 3)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
