@@ -206,8 +206,17 @@ class PerformanceRegressionTests(unittest.TestCase):
         rows = self.transactions.issued()
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["status"], "Issued")
+
+    def test_recent_transactions_respects_limit(self):
+        self.add_book(quantity=3)
+        self.add_member()
+        due = (date.today() + timedelta(days=7)).isoformat()
+        for _ in range(3):
+            self.transactions.issue(1, 1, due)
+        self.assertEqual(len(self.transactions.recent(limit=2)), 2)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
