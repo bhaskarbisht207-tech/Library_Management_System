@@ -164,8 +164,15 @@ class PerformanceRegressionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.transactions.issue(999, 1, (date.today() + timedelta(days=7)).isoformat())
         self.assertEqual(self.db.fetchone("SELECT COUNT(*) AS n FROM transactions")["n"], 0)
+
+    def test_issue_missing_member_preserves_stock(self):
+        self.add_book()
+        with self.assertRaises(ValueError):
+            self.transactions.issue(1, 999, (date.today() + timedelta(days=7)).isoformat())
+        self.assertEqual(self.books.get(1)["available_quantity"], 3)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
