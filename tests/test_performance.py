@@ -130,8 +130,14 @@ class PerformanceRegressionTests(unittest.TestCase):
 
     def test_missing_book_lookup_returns_none(self):
         self.assertIsNone(self.books.get(999))
+
+    def test_book_delete_removes_record(self):
+        self.add_book()
+        self.books.delete(1)
+        self.assertIsNone(self.books.get(1))
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
