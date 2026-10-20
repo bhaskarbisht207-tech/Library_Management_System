@@ -195,8 +195,20 @@ class PerformanceRegressionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.transactions.return_book(1)
         self.assertEqual(self.books.get(1)["available_quantity"], 3)
+
+    def test_issued_list_excludes_returned_transactions(self):
+        self.add_book(quantity=3)
+        self.add_member()
+        due = (date.today() + timedelta(days=7)).isoformat()
+        self.transactions.issue(1, 1, due)
+        self.transactions.return_book(1)
+        self.transactions.issue(1, 1, due)
+        rows = self.transactions.issued()
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["status"], "Issued")
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
