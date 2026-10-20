@@ -158,8 +158,15 @@ class PerformanceRegressionTests(unittest.TestCase):
 
     def test_missing_member_lookup_returns_none(self):
         self.assertIsNone(self.members.get(999))
+
+    def test_issue_missing_book_does_not_create_transaction(self):
+        self.add_member()
+        with self.assertRaises(ValueError):
+            self.transactions.issue(999, 1, (date.today() + timedelta(days=7)).isoformat())
+        self.assertEqual(self.db.fetchone("SELECT COUNT(*) AS n FROM transactions")["n"], 0)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
