@@ -178,8 +178,16 @@ class PerformanceRegressionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.transactions.issue(1, 1, yesterday)
         self.assertEqual(self.books.get(1)["available_quantity"], 3)
+
+    def test_issue_rejects_zero_available_stock(self):
+        self.add_book(quantity=0)
+        self.add_member()
+        with self.assertRaises(ValueError):
+            self.transactions.issue(1, 1, (date.today() + timedelta(days=7)).isoformat())
+        self.assertEqual(self.db.fetchone("SELECT COUNT(*) AS n FROM transactions")["n"], 0)
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
 
 
 
